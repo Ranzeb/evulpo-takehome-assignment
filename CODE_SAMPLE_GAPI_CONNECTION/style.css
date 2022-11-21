@@ -2,7 +2,7 @@
 	text-align:center;
 }
 
-.question{
+.question, .score{
 	font-weight: bold;
     font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
 	color: #636363;
@@ -46,6 +46,7 @@
 }
 
 .evaluateBtn {
+  margin-bottom: 20px;
   background: #5E5DF0;
   border-radius: 999px;
   box-shadow: #5E5DF0 0 10px 20px -10px;
@@ -68,6 +69,7 @@
 }
 
 .nextBtn {
+	margin-bottom: 20px;
 	background: #e62143;
 	border-radius: 999px;
 	box-shadow: #5E5DF0 0 10px 20px -10px;
@@ -87,25 +89,51 @@
 	width: fit-content;
 	word-break: break-word;
 	border: 0;
-  }
+}
   
+.resultBtn {
+	margin-bottom: 20px;
+	background: #00AB66;
+	border-radius: 999px;
+	box-shadow: #5E5DF0 0 10px 20px -10px;
+	box-sizing: border-box;
+	color: #FFFFFF;
+	cursor: pointer;
+	font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 24px;
+	opacity: 1;
+	outline: 0 solid transparent;
+	padding: 8px 18px;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+	width: fit-content;
+	word-break: break-word;
+	border: 0;	  
+}
   
 .buttonsDiv {
 	bottom: 0;
 	position: fixed;
 	width: 100%;
 	margin-bottom: 50px;
+	border-radius: 20px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .mainContent {
 	position: absolute;
     top: 50%;
-    /* left: 50%; */
     margin-top: -50px;
-    /* margin-left: -50px; */
     width: 100%;
-    /* width: 100px; */
-    /* height: 100px; */
-    /* display: flex; */
-    /* justify-content: center;
+}
+
+.evaluation-message {
+	font-weight: bold;
+    font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+	color: #636363;
+	font-size: 24px;
 }

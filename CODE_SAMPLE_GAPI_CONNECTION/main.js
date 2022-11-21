@@ -10,10 +10,14 @@ let options;
 let states = [];
 let correct_answer_index;
 let chosen_answer_index;
+let totNumberOfQuestions;
 let questions = [];
 let currentOptions = [];
 let currentSelectedResponse;
 let currentCorrectResponse;
+let questionsResult = [];
+let currentQuestionIndex;
+
 
 let gapiInitied = false;
 let gisInited = false;
@@ -34,12 +38,6 @@ async function initClient() {
 
 async function getExerciseData() {
 
-	// Google Spreadsheet params
-	var params = {
-		spreadsheetId: '1hzA42BEzt2lPvOAePP6RLLRZKggbg0RWuxSaEwd5xLc',
-		range: 'Learning!A1:F10',
-	}
-
 	let response;
 
 	try {
@@ -50,30 +48,23 @@ async function getExerciseData() {
 	} catch (err) {
 		console.log('Error: ' + err);
 	}
-	let slicedQuestions = response.result.values.slice(1);
-	let questionIndex = Math.floor(Math.random() * slicedQuestions.length);
-
-	let options = slicedQuestions[questionIndex][3].split(";")
+	questions = response.result.values.slice(1)
+	totNumberOfQuestions = questions.length
+	let questionIndex = Math.floor(Math.random() * questions.length)
+	currentQuestionIndex = questionIndex
+	let options = questions[questionIndex][3].split(";")
 	let optionsContainer = document.querySelector('#options-wrapper')
 	const questionTitle = document.getElementById('question')
-	questionTitle.innerHTML = slicedQuestions[questionIndex][2]
+	questionTitle.innerHTML = questions[questionIndex][2]
 	currentOptions = options;
-	currentCorrectResponse = slicedQuestions[questionIndex][4];
+	currentCorrectResponse = questions[questionIndex][4];
 	for (let i = 0; i < options.length; i++) {
 		optionsContainer.innerHTML += `<div class='unchosen option' id='question${i}'><p class='text' onClick='toggleChoice(${i})'>` + options[i] + "</p></div>"
 	}
 	optionsContainer.innerHTML += "<br/>"
 
-	/*
-	questions.slice(1).map((question, idx) => {
-		let options = question[3].split(";")
-		let optionsContainer = document.querySelector('#options-wrapper')
-		for (let i = 0; i < options.length; i++) {
-			optionsContainer.innerHTML += `<div class='unchosen option'><p class='text' onClick='toggleChoice(${i})'>` + options[i] + "</p></div>"
-		}
-		optionsContainer.innerHTML += "<br/>"
-	})
-	*/
+	let evaluateBtn = document.getElementById('evaluate')
+	evaluateBtn.style.display = ''
 }
 
 function toggleChoice(index) {
@@ -95,14 +86,85 @@ function myEvaluation() {
 	console.log(questions);
 	let evMessage = document.querySelector('#evaluation-message')
 	if (currentSelectedResponse == currentCorrectResponse) {
-		evMessage.innerHTML = '<p>Awesome!</p>'
+		evMessage.innerHTML = '<p>Awesome! Correct reply</p>'
+		questionsResult.push(questions[currentQuestionIndex][5])
+
 		let evaluateBtn = document.getElementById('evaluate')
 		evaluateBtn.style.display = 'none'
 
-		let nextBtn = document.getElementById('next')
-		nextBtn.style.display = ''
+
+		if (questionsResult.length == totNumberOfQuestions) {
+			let resultBtn = document.getElementById('resultBtn')
+			resultBtn.style.display = ''
+		} else {
+			let nextBtn = document.getElementById('next')
+			nextBtn.style.display = ''
+		}
+
+		/*
+		let background = document.getElementById('buttonsDiv')
+		background.style.backgroundColor = '#00AB66'
+		*/
+
+
 	} else {
 		evMessage.innerHTML = '<p>Wrong answer!</p>'
 	}
 }
 
+
+function loadNextQuestion() {
+	// remove current question from questions list
+	questions.splice(currentQuestionIndex, 1)
+	let questionIndex = Math.floor(Math.random() * questions.length);
+	currentQuestionIndex = questionIndex;
+	console.log("current quest: " + questionIndex + " quest length: " + questions.length)
+	console.log(questions)
+	let options = questions[questionIndex][3].split(";")
+	let optionsContainer = document.querySelector('#options-wrapper')
+	while (optionsContainer.lastElementChild) {
+		optionsContainer.removeChild(optionsContainer.lastElementChild)
+	}
+	const questionTitle = document.getElementById('question')
+	questionTitle.innerHTML = questions[questionIndex][2]
+	currentOptions = options;
+	currentCorrectResponse = questions[questionIndex][4];
+	for (let i = 0; i < options.length; i++) {
+		optionsContainer.innerHTML += `<div class='unchosen option' id='question${i}'><p class='text' onClick='toggleChoice(${i})'>` + options[i] + "</p></div>"
+	}
+	optionsContainer.innerHTML += "<br/>"
+
+	let evaluateBtn = document.getElementById('evaluate')
+	evaluateBtn.style.display = ''
+
+	let nextBtn = document.getElementById('next')
+	nextBtn.style.display = 'none'
+
+	let evMessage = document.querySelector('#evaluation-message')
+	evMessage.innerHTML = ""
+}
+
+
+function loadResults() {
+	let totalScore = 0;
+	questionsResult.map((currScore) => {
+		totalScore += parseInt(currScore);
+	})
+
+	let optionsContainer = document.querySelector('#options-wrapper')
+	optionsContainer.innerHTML = ""
+	let evMessage = document.querySelector('#evaluation-message')
+	evMessage.innerHTML = ""
+
+	let resultBtn = document.getElementById('resultBtn')
+	resultBtn.style.display = 'none'
+	startConfetti();
+	const questionTitle = document.getElementById('question')
+	questionTitle.innerHTML = "Congratulations, your final score is:"
+	const score = document.getElementById('score')
+	score.innerHTML = totalScore
+
+
+
+	console.log(totalScore)
+}

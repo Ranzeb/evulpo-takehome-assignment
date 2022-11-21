@@ -10,25 +10,34 @@
 	<script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
 		onreadystatechange="if (this.readyState === 'complete') this.onload()">
 		</script>
+
+	<script src="confetti.js"></script>
 </head>
 
 <body>
 	<div class="container">
 		<div class="mainContent">
 			<p id="question" class="question"></p>
+			<p id="score" class="score"></p>
 			<div id="options-wrapper">
 
 			</div>
 
 		</div>
 
-		<div class="buttonsDiv">
-			<button id="evaluate" class="evaluateBtn" onclick="myEvaluation()" style="display:''">Evaluate!</button>
-			<button id="next" class="nextBtn" onClick="window.location.reload();" style='display: none'>Next random
+		<div id="buttonsDiv" class="buttonsDiv">
+			<div class="evaluation-message" id="evaluation-message"></div>
+			<button id="evaluate" class="evaluateBtn" onClick="myEvaluation()" style="display: none">Evaluate!</button>
+			<!--<button id="next" class="nextBtn" onClick="window.location.reload();" style='display: none'>Next random
+				question</button> -->
+			<button id="next" class="nextBtn" onClick="loadNextQuestion()" style='display: none'>Next random
 				question</button>
+
+			<button id="resultBtn" class="resultBtn" onClick="loadResults()" style='display: none'>See your
+				score</button>
 		</div>
 
-		<div id="evaluation-message"></div>
+
 	</div>
 </body>
 
