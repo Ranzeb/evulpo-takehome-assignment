@@ -28,4 +28,12 @@ https://www.npmjs.com/package/http-server
 
 # Run
 
-You need to npm install the dependencies and then, you can run the application by using the command node server.js in order to avoid the cross origin restrictions and the open the index.html at the localhost address
+You need to install the dependencies with the command:
+
+npm install
+
+Then, you can run the application by using the command:
+
+node server.js 
+
+in order to avoid the cross origin restrictions and the open the index.html at the localhost address
