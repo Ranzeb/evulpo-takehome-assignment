@@ -37,7 +37,7 @@ You need to install the dependencies with the command:
 
 npm install
 
-Then, you can run the application by using the command:
+Then, you can run the application inside the CODE_SAMPLE_GAPI_CONNECTION folder by using the command:
 
 node server.js 
 
