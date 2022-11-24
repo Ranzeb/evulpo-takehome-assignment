@@ -19,6 +19,9 @@ After that, an evaluation button is shown and then you can see your final result
 
 The core idea is to fetch the data from G-API at the loading of the test and then manipulate an array of object to speed up the process and don't make a lot of async call that can slow the overall performances.
 
+
+# Good to know
+
 * Due to Cross Origin restrictions while using gapi, you need to run your application and connect to the google api (gapi) you need to start a server using npm or npx  http-server
 
 https://www.npmjs.com/package/npx-server
